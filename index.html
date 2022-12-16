@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animation test</title>
+
+    <!-- JS, Popper.js, and jQuery -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+
+    <!-- JS, Popper.js, and jQuery -->
+
+    <script>
+
+        /* 
+            //top left
+            left: margin 0
+            top: margin 0
+
+            //bottom left
+            left: 0px
+            top: 190px MAX
+
+            //MAX RIGHT
+            left: 490px
+
+            //FINAL DATA
+            HEIGTH: 0-190 PX
+            WIDTH: 0-490 PX
+
+        */
+
+        $(document).ready(()=>{
+            class Player{
+                constructor(x, y){
+                    this.x = x;
+                    this.y = y;
+                }
+            }
+
+            var getPlayer = new Player(0, 5);
+
+            
+            $("body").keypress(function(){
+                if(event.key == "a") {
+                    if(getPlayer.y >0) {
+                        getPlayer.y -= 5
+                    }
+                }
+                if(event.key == "d") {
+                    if(getPlayer.y < 490) {
+                        getPlayer.y += 5;
+                    }
+                }
+                if(event.key == "w") {
+                    getPlayer.x -= 10;
+                }
+            })
+
+            function animate(){
+                window.requestAnimationFrame(animate);
+
+                //condition
+                if(getPlayer.x < 190) { getPlayer.x += 2; }
+
+                $(".player").css("margin-top", getPlayer.x);
+                $(".player").css("margin-left", getPlayer.y);
+            }
+            animate();
+        })
+
+    </script>
+
+    <style>
+        .container {
+            width: 500px;
+            height: 200px;
+            border:1px solid black;
+        }
+        .player {
+            width: 10px;
+            height: 10px;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="player"></div>
+    </div>
+    <p>P.S : Make sure you are not in capslock</p>
+    <p>Controls: </p>
+    <p>A/D - LEFT/RIGHT</p>
+</body>
+</html>
